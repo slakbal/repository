@@ -21,11 +21,6 @@ abstract class Repository implements RepositoryInterface {
     protected $folder = 'Entities';
 
     /**
-     * @var App
-     */
-    protected $app;
-
-    /**
      * @return mixed
      */
     public function __construct()
