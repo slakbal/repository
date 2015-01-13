@@ -1,6 +1,6 @@
 {
     "name": "bican/repository",
-    "description": "",
+    "description": "Simple implementation of the repository pattern for Laravel",
     "authors": [
         {
             "name": "Roman Bičan",
