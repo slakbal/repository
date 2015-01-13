@@ -1,0 +1,19 @@
+{
+    "name": "bican/repository",
+    "description": "",
+    "authors": [
+        {
+            "name": "Roman Bičan",
+            "email": "romanbican@seznam.cz"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "illuminate/support": "~5.0"
+    },
+    "autoload": {
+        "psr-0": {
+            "Bican\\Repository": "src/"
+        }
+    }
+}
