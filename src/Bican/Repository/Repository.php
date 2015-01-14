@@ -204,8 +204,8 @@ abstract class Repository implements RepositoryInterface {
      */
     public function __call($method, $parameters)
     {
-        if (starts_with($method, 'findBy')) return $this->findBy(snake_case(substr($method, 6)), $parameters[0], isset($parameters[1]) ? $parameters[1] : null);
-        if (starts_with($method, 'findOrFailBy')) return $this->findOrFailBy(snake_case(substr($method, 12)), isset($parameters[1]) ? $parameters[1] : null);
+        if (starts_with($method, 'findBy')) return $this->findBy(snake_case(substr($method, 6)), $parameters[0], isset($parameters[1]) ? $parameters[1] : ['*']);
+        if (starts_with($method, 'findOrFailBy')) return $this->findOrFailBy(snake_case(substr($method, 12)), isset($parameters[1]) ? $parameters[1] : ['*']);
 
         throw new BadMethodCallException('Method [' . $method . '] does not exist.');
     }
