@@ -85,7 +85,7 @@ interface RepositoryInterface {
      *
      * @param integer $id
      * @param array $data
-     * @return mixed
+     * @return boolean
      */
     public function update($id, array $data);
 
@@ -93,7 +93,7 @@ interface RepositoryInterface {
      * Delete an entity.
      *
      * @param int $id
-     * @return mixed
+     * @return boolean
      */
     public function delete($id);
 
