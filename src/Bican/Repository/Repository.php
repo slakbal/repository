@@ -39,7 +39,9 @@ abstract class Repository implements RepositoryInterface {
     {
         $repositoryName = explode('\\', get_called_class());
 
-        $this->modelName = $repositoryName[0] . ($this->modelFolder !== '') ? '\\' . $this->modelFolder . '\\' : '\\' . str_replace('Repository', '', end($repositoryName));
+        $modelFolder = ($this->modelFolder !== '') ? '\\' . $this->modelFolder . '\\' : '\\';
+
+        $this->modelName = $repositoryName[0] . $modelFolder . str_replace('Repository', '', end($repositoryName));
     }
 
     /**
