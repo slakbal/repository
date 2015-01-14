@@ -159,7 +159,7 @@ abstract class Repository implements RepositoryInterface {
      */
     public function findAllPaginated($perPage = 20, array $orderBy = ['id', 'asc'], array $attributes = ['*'])
     {
-        return $this->model->orderBy($orderBy[0], $orderBy[1])->paginated($perPage)->get($attributes);
+        return $this->model->orderBy($orderBy[0], $orderBy[1])->paginate($perPage)->get($attributes);
     }
 
     /**
