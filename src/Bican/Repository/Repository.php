@@ -1,6 +1,7 @@
 <?php namespace Bican\Repository;
 
 use Bican\Repository\Exceptions\BadMethodCallException;
+use Bican\Repository\Exceptions\EntityNotFoundException;
 use Bican\Repository\Exceptions\ModelNotFoundException;
 
 abstract class Repository implements RepositoryInterface {
@@ -78,10 +79,15 @@ abstract class Repository implements RepositoryInterface {
      * @param int $id
      * @param array $attributes
      * @return mixed
+     * @throws EntityNotFoundException
      */
     public function findOrFail($id, array $attributes = ['*'])
     {
-        return $this->model->select($attributes)->findOrFail($id);
+        if( ! $entity = $this->find($id, $attributes)) {
+            throw new EntityNotFoundException('Entity does not exist.');
+        }
+
+        return $entity;
     }
 
     /**
@@ -92,7 +98,7 @@ abstract class Repository implements RepositoryInterface {
      * @param array $attributes
      * @return mixed
      */
-    public function findBy($columnName, $value, $attributes = ['*'])
+    public function findBy($columnName, $value, array $attributes = ['*'])
     {
         return $this->model->where($columnName, $value)->first($attributes);
     }
@@ -104,10 +110,15 @@ abstract class Repository implements RepositoryInterface {
      * @param string $value
      * @param array $attributes
      * @return mixed
+     * @throws EntityNotFoundException
      */
-    public function findOrFailBy($columnName, $value, $attributes = ['*'])
+    public function findOrFailBy($columnName, $value, array $attributes = ['*'])
     {
-        return $this->model->where($columnName, $value)->firstOrFail($attributes);
+        if( ! $entity = $this->findBy($columnName, $value, $attributes)) {
+            throw new EntityNotFoundException('Entity does not exist.');
+        }
+
+        return $entity;
     }
 
     /**
@@ -117,7 +128,7 @@ abstract class Repository implements RepositoryInterface {
      * @param array $attributes
      * @return mixed
      */
-    public function findAll(array $orderBy = ['id', 'asc'], $attributes = ['*'])
+    public function findAll(array $orderBy = ['id', 'asc'], array $attributes = ['*'])
     {
         return $this->model->orderBy($orderBy[0], $orderBy[1])->get($attributes);
     }
@@ -131,7 +142,7 @@ abstract class Repository implements RepositoryInterface {
      * @param array $attributes
      * @return mixed
      */
-    public function findAllBy($columnName, $value, array $orderBy = ['id', 'asc'], $attributes = ['*'])
+    public function findAllBy($columnName, $value, array $orderBy = ['id', 'asc'], array $attributes = ['*'])
     {
         return $this->model->where($columnName, $value)->orderBy($orderBy[0], $orderBy[1])->get($attributes);
     }
@@ -144,7 +155,7 @@ abstract class Repository implements RepositoryInterface {
      * @param array $attributes
      * @return mixed
      */
-    public function findAllPaginated($perPage = 20, array $orderBy = ['id', 'asc'], $attributes = ['*'])
+    public function findAllPaginated($perPage = 20, array $orderBy = ['id', 'asc'], array $attributes = ['*'])
     {
         return $this->model->orderBy($orderBy[0], $orderBy[1])->paginated($perPage)->get($attributes);
     }

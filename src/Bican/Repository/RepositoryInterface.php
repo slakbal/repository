@@ -17,6 +17,7 @@ interface RepositoryInterface {
      * @param int $id
      * @param array $attributes
      * @return mixed
+     * @throws EntityNotFoundException
      */
     public function findOrFail($id, array $attributes = ['*']);
 
@@ -28,7 +29,7 @@ interface RepositoryInterface {
      * @param array $attributes
      * @return mixed
      */
-    public function findBy($columnName, $value, $attributes = ['*']);
+    public function findBy($columnName, $value, array $attributes = ['*']);
 
     /**
      * Find an entity by specific column name or fail.
@@ -37,8 +38,9 @@ interface RepositoryInterface {
      * @param string $value
      * @param array $attributes
      * @return mixed
+     * @throws EntityNotFoundException
      */
-    public function findOrFailBy($columnName, $value, $attributes = ['*']);
+    public function findOrFailBy($columnName, $value, array $attributes = ['*']);
 
     /**
      * Find all entities.
@@ -47,7 +49,7 @@ interface RepositoryInterface {
      * @param array $attributes
      * @return mixed
      */
-    public function findAll(array $orderBy = ['id', 'asc'], $attributes = ['*']);
+    public function findAll(array $orderBy = ['id', 'asc'], array $attributes = ['*']);
 
     /**
      * Find all entities by specific column name.
@@ -58,7 +60,7 @@ interface RepositoryInterface {
      * @param array $attributes
      * @return mixed
      */
-    public function findAllBy($columnName, $value, array $orderBy = ['id', 'asc'], $attributes = ['*']);
+    public function findAllBy($columnName, $value, array $orderBy = ['id', 'asc'], array $attributes = ['*']);
 
     /**
      * Find all entities paginated.
@@ -68,7 +70,7 @@ interface RepositoryInterface {
      * @param array $attributes
      * @return mixed
      */
-    public function findAllPaginated($perPage = 20, array $orderBy = ['id', 'asc'], $attributes = ['*']);
+    public function findAllPaginated($perPage = 20, array $orderBy = ['id', 'asc'], array $attributes = ['*']);
 
     /**
      * Create a new entity.
