@@ -206,6 +206,7 @@ abstract class Repository implements RepositoryInterface {
     {
         if (starts_with($method, 'findBy')) return $this->findBy(snake_case(substr($method, 6)), $parameters[0], isset($parameters[1]) ? $parameters[1] : ['*']);
         if (starts_with($method, 'findOrFailBy')) return $this->findOrFailBy(snake_case(substr($method, 12)), $parameters[0], isset($parameters[1]) ? $parameters[1] : ['*']);
+        if (starts_with($method, 'findAllBy')) return $this->findAllBy(snake_case(substr($method, 9)), $parameters[0], isset($parameters[1]) ? $parameters[1] : ['id', 'asc'], isset($parameters[2]) ? $parameters[2] : ['*ß']);
 
         throw new BadMethodCallException('Method [' . $method . '] does not exist.');
     }
