@@ -18,7 +18,7 @@ abstract class Repository implements RepositoryInterface {
     /**
      * @var string
      */
-    protected $folder = 'Entities';
+    protected $modelFolder = '';
 
     /**
      * @return mixed
@@ -37,11 +37,9 @@ abstract class Repository implements RepositoryInterface {
      */
     protected function setModelName()
     {
-        $namespace = explode('\\', get_called_class());
+        $repositoryName = explode('\\', get_called_class());
 
-        $folder = ($this->folder !== '') ? '\\' . $this->folder . '\\' : '\\';
-
-        $this->modelName = $namespace[0] . $folder . str_replace('Repository', '', end($namespace));
+        $this->modelName = $repositoryName[0] . ($this->modelFolder !== '') ? '\\' . $this->modelFolder . '\\' : '\\' . str_replace('Repository', '', end($repositoryName));
     }
 
     /**
@@ -50,7 +48,7 @@ abstract class Repository implements RepositoryInterface {
      * @param string $name
      * @throws ModelNotFoundException
      */
-    public function setModel($name)
+    protected function setModel($name)
     {
         if ( ! class_exists($name))
         {
@@ -111,14 +109,13 @@ abstract class Repository implements RepositoryInterface {
     /**
      * Find all entities.
      *
-     * @param string $orderColumn
-     * @param string $orderType
+     * @param array $orderBy
      * @param array $attributes
      * @return mixed
      */
-    public function findAll($orderColumn = 'id', $orderType = 'asc', $attributes = ['*'])
+    public function findAll(array $orderBy = ['id', 'asc'], $attributes = ['*'])
     {
-        return $this->model->orderBy($orderColumn, $orderType)->get($attributes);
+        return $this->model->orderBy($orderBy[0], $orderBy[1])->get($attributes);
     }
 
     /**
@@ -126,28 +123,26 @@ abstract class Repository implements RepositoryInterface {
      *
      * @param string $columnName
      * @param string $value
-     * @param string $orderColumn
-     * @param string $orderType
+     * @param array $orderBy
      * @param array $attributes
      * @return mixed
      */
-    public function findAllBy($columnName, $value, $orderColumn = 'id', $orderType = 'asc', $attributes = ['*'])
+    public function findAllBy($columnName, $value, array $orderBy = ['id', 'asc'], $attributes = ['*'])
     {
-        return $this->model->where($columnName, $value)->orderBy($orderColumn, $orderType)->get($attributes);
+        return $this->model->where($columnName, $value)->orderBy($orderBy[0], $orderBy[1])->get($attributes);
     }
 
     /**
      * Find all entities paginated.
      *
      * @param int $perPage
-     * @param string $orderColumn
-     * @param string $orderType
+     * @param array $orderBy
      * @param array $attributes
      * @return mixed
      */
-    public function findAllPaginated($perPage = 20, $orderColumn = 'id', $orderType = 'asc', $attributes = ['*'])
+    public function findAllPaginated($perPage = 20, array $orderBy = ['id', 'asc'], $attributes = ['*'])
     {
-        return $this->model->orderBy($orderColumn, $orderType)->paginated($perPage)->get($attributes);
+        return $this->model->orderBy($orderBy[0], $orderBy[1])->paginated($perPage)->get($attributes);
     }
 
     /**
@@ -194,7 +189,6 @@ abstract class Repository implements RepositoryInterface {
     {
         if (starts_with($method, 'findBy')) return $this->findBy(snake_case(substr($method, 6)), $parameters[0], isset($parameters[1]) ? $parameters[1] : null);
         if (starts_with($method, 'findOrFailBy')) return $this->findOrFailBy(snake_case(substr($method, 12)), isset($parameters[1]) ? $parameters[1] : null);
-        if (starts_with($method, 'findAllBy')) return $this->findAllBy(snake_case(substr($method, 9)), isset($parameters[1]) ? $parameters[1] : null);
 
         throw new BadMethodCallException('Method [' . $method . '] does not exist.');
     }

@@ -41,35 +41,32 @@ interface RepositoryInterface {
     /**
      * Find all entities.
      *
-     * @param string $orderColumn
-     * @param string $orderType
+     * @param array $orderBy
      * @param array $attributes
      * @return mixed
      */
-    public function findAll($orderColumn = 'id', $orderType = 'asc', $attributes = ['*']);
+    public function findAll(array $orderBy = ['id', 'asc'], $attributes = ['*']);
 
     /**
      * Find all entities by specific column name.
      *
      * @param string $columnName
      * @param string $value
-     * @param string $orderColumn
-     * @param string $orderType
+     * @param array $orderBy
      * @param array $attributes
      * @return mixed
      */
-    public function findAllBy($columnName, $value, $orderColumn = 'id', $orderType = 'asc', $attributes = ['*']);
+    public function findAllBy($columnName, $value, array $orderBy = ['id', 'asc'], $attributes = ['*']);
 
     /**
      * Find all entities paginated.
      *
      * @param int $perPage
-     * @param string $orderColumn
-     * @param string $orderType
+     * @param array $orderBy
      * @param array $attributes
      * @return mixed
      */
-    public function findAllPaginated($perPage = 20, $orderColumn = 'id', $orderType = 'asc', $attributes = ['*']);
+    public function findAllPaginated($perPage = 20, array $orderBy = ['id', 'asc'], $attributes = ['*']);
 
     /**
      * Create a new entity.
