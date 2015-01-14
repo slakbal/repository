@@ -6,17 +6,19 @@ interface RepositoryInterface {
      * Find an entity by id.
      *
      * @param int $id
+     * @param array $attributes
      * @return mixed
      */
-    public function find($id);
+    public function find($id, array $attributes = ['*']);
 
     /**
      * Find an entity by id or fail.
      *
      * @param int $id
+     * @param array $attributes
      * @return mixed
      */
-    public function findOrFail($id);
+    public function findOrFail($id, array $attributes = ['*']);
 
     /**
      * Find an entity by specific column name.
