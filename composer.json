@@ -1,6 +1,8 @@
 {
     "name": "bican/repository",
     "description": "Simple implementation of the repository pattern for Laravel",
+    "keywords": ["repository", "laravel"],
+    "license": "MIT",
     "authors": [
         {
             "name": "Roman Bičan",
