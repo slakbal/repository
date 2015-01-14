@@ -84,7 +84,7 @@ abstract class Repository implements RepositoryInterface {
     public function findOrFail($id, array $attributes = ['*'])
     {
         if( ! $entity = $this->find($id, $attributes)) {
-            throw new EntityNotFoundException('Entity does not exist.');
+            throw new EntityNotFoundException('Entity not found.');
         }
 
         return $entity;
@@ -115,7 +115,7 @@ abstract class Repository implements RepositoryInterface {
     public function findOrFailBy($columnName, $value, array $attributes = ['*'])
     {
         if( ! $entity = $this->findBy($columnName, $value, $attributes)) {
-            throw new EntityNotFoundException('Entity does not exist.');
+            throw new EntityNotFoundException('Entity not found.');
         }
 
         return $entity;
