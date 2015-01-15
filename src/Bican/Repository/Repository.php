@@ -3,6 +3,7 @@
 use Bican\Repository\Exceptions\BadMethodCallException;
 use Bican\Repository\Exceptions\EntityNotFoundException;
 use Bican\Repository\Exceptions\ModelNotFoundException;
+use Bican\Repository\Exceptions\UnableToUpdateException;
 
 abstract class Repository implements RepositoryInterface {
 
@@ -85,7 +86,7 @@ abstract class Repository implements RepositoryInterface {
     {
         if( ! $entity = $this->find($id, $columns))
         {
-            throw new EntityNotFoundException('Entity not found.');
+            throw new EntityNotFoundException('Entity [' . $id . '] doest not exist.');
         }
 
         return $entity;
@@ -117,7 +118,7 @@ abstract class Repository implements RepositoryInterface {
     {
         if( ! $entity = $this->findBy($columnName, $value, $columns))
         {
-            throw new EntityNotFoundException('Entity not found.');
+            throw new EntityNotFoundException('Entity doest not exist.');
         }
 
         return $entity;
@@ -178,11 +179,14 @@ abstract class Repository implements RepositoryInterface {
      *
      * @param integer $id
      * @param array $data
-     * @return boolean
+     * @return mixed
+     * @throws EntityNotFoundException|UnableToUpdateException
      */
     public function update($id, array $data)
     {
-        return $this->findOrFail($id)->update($data);
+        if($this->findOrFail($id)->update($data)) return $this->findOrFail($id);
+
+        throw new UnableToUpdateException;
     }
 
     /**
@@ -190,6 +194,7 @@ abstract class Repository implements RepositoryInterface {
      *
      * @param int $id
      * @return boolean
+     * @throws EntityNotFoundException
      */
     public function delete($id)
     {

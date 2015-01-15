@@ -85,7 +85,8 @@ interface RepositoryInterface {
      *
      * @param integer $id
      * @param array $data
-     * @return boolean
+     * @return mixed
+     * @throws EntityNotFoundException|UnableToUpdateException
      */
     public function update($id, array $data);
 
@@ -94,6 +95,7 @@ interface RepositoryInterface {
      *
      * @param int $id
      * @return boolean
+     * @throws EntityNotFoundException
      */
     public function delete($id);
 
