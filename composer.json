@@ -1,7 +1,7 @@
 {
     "name": "bican/repository",
-    "description": "Simple implementation of the repository pattern for Laravel",
-    "keywords": ["repository", "laravel"],
+    "description": "Simple implementation of the repository pattern for Laravel 5",
+    "keywords": ["repository", "laravel", "laravel5"],
     "license": "MIT",
     "authors": [
         {
