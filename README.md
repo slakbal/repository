@@ -52,7 +52,7 @@ class UserRepository extends Repository {
 }
 ```
 
-You are now set to go. Look at RepositoryInterface.php to find out what methods you can use and what parametr you need to pass. You can overwrite them in your child repository or you can create new ones. There is a small example:
+You are now set to go. Look at RepositoryInterface.php to find out what methods you can use and what parameter you need to pass. You can overwrite them in your child repository or you can create new ones. There is a small example:
 
 ```php
 use Bican\Repository\Repository;
